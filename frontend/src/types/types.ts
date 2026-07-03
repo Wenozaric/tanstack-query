@@ -3,5 +3,8 @@ export interface exampleType {
 }
 
 export interface exampleResponse {
-    message: string
+    data: any
+}
+export interface Post{
+    name: string
 }

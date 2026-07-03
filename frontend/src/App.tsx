@@ -1,10 +1,24 @@
 import './style.css'
-
+import { exampleService } from './api/services'
+import { useQuery } from '@tanstack/react-query'
+import { type Post } from './types/types'
 
 function App() {
-  
-  return (
-		<div className='w-6 h-6 bg-emerald-400 border-2 border-emerald-600 shadow-md rounded-sm'></div>
+
+	const fetchData = async () => {
+		const res = await exampleService.fetchData()
+		return res.data
+	}
+
+	const { data} = useQuery<Post[]>({
+		queryKey: ["posts"],
+		queryFn: fetchData
+	})
+	
+	return (
+		<div className='m-12'>
+			{data?.map((post, id) => <div key={id}>{post.name}</div>)}
+		</div>
 	)
 }
 
